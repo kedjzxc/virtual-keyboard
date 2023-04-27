@@ -59,11 +59,12 @@
   width: 80px;
 }
 
-.keyboard__btn-shift {
+.keyboard__btn-shift--left {
   width: 80px;
 }
 
-.keyboard__btn-ctrl {
+.keyboard__btn-ctrl--right,
+.keyboard__btn-ctrl--left {
   width: 60px;
 }
 
