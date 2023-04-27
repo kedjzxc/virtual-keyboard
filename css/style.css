@@ -1,1 +1,68 @@
-@import url(normalize.css);/*# sourceMappingURL=style.css.map */
+@import url(normalize.css);
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.keyboard {
+  max-width: 100%;
+  width: 680px;
+}
+
+.keyboard__inner {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.keyboard__btn {
+  width: 40px;
+  height: 40px;
+  background-color: #3a424e;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+.keyboard__btn.active {
+  background: blue;
+}
+
+.keyboard__btn-backspace {
+  width: 80px;
+}
+
+.keyboard__btn-black {
+  color: #7a7968;
+  background-color: #1c232e;
+}
+
+.keyboard__btn-tab {
+  width: 45px;
+}
+
+.keyboard__btn-caps {
+  width: 80px;
+}
+
+.keyboard__btn-enter {
+  width: 80px;
+}
+
+.keyboard__btn-shift {
+  width: 80px;
+}
+
+.keyboard__btn-ctrl {
+  width: 60px;
+}
+
+.keyboard__btn-space {
+  width: 280px;
+}/*# sourceMappingURL=style.css.map */
