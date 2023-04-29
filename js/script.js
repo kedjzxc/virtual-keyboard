@@ -1,3 +1,62 @@
+const body = document.body
+  body.innerHTML = `
+  <div class="container">
+    <textarea name="input" id="input" cols="70" rows="10"></textarea>
+    <div class="keyboard">
+      <div class="keyboard__inner">
+        
+      </div>
+    </div>
+  </div>
+    `
+
+
+const russianLayout = [
+  'ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace',
+  'Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', 'Del',
+  'CapsLock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter',
+  'Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', '▲', 'Shift',
+  'Ctrl', 'Win', 'Alt', ' ', 'Alt', '◄', '▼', '►', 'Ctrl'
+];
+
+const englishLayout = [
+  '`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace',
+  'Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', 'Del',
+  'CapsLock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '\'', 'Enter',
+  'Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', '▲', 'Shift',
+  'Ctrl', 'Win', 'Alt', ' ', 'Alt', '◄', '▼', '►', 'Ctrl'
+];
+
+const keyboard = document.querySelector('.keyboard__inner')
+let curLayout = localStorage.getItem('keyboardLayout') === 'english' ? englishLayout : russianLayout;
+let capsLockActive = false
+renderKeyboard()
+
+function createKey(keyCode, keyValue) {
+  const btn = document.createElement('div')
+  btn.classList.add('keyboard__btn')
+  btn.dataset.code = keyCode
+  btn.textContent = keyValue
+  return btn
+}
+
+
+
+const shift = document.querySelector('.keyboard__btn-shift--left')
+console.log(shift);
+shift.addEventListener('click', (e) => {
+  if (curLayout == russianLayout) {
+    curLayout = englishLayout
+    localStorage.setItem('keyboardLayout', 'english');
+  } else {
+    curLayout = russianLayout
+    localStorage.setItem('keyboardLayout', 'russian');
+  }
+  keyboard.innerHTML = ''
+  renderKeyboard()
+})
+
+
 const btns = document.querySelectorAll('.keyboard__btn');
 const input = document.getElementById('input');
 const space = document.querySelector('.keyboard__btn-space');
@@ -5,22 +64,12 @@ const backspace = document.querySelector('.keyboard__btn-backspace')
 const tab = document.querySelector('.keyboard__btn-tab')
 const del = document.querySelector('.keyboard__btn-del')
 const caps = document.querySelector('.keyboard__btn-caps')
-const leftShift = document.querySelector('.keyboard__btn-shift--left')
-const rigthShift = document.querySelector('.keyboard__btn-shift--right')
-const ctrlRight = document.querySelector('.keyboard__btn-ctrl--right')
-const ctrlLeft = document.querySelector('.keyboard__btn-ctrl--left')
+const ctrl = document.querySelector('.keyboard__btn-ctrl')
 const enter = document.querySelector('.keyboard__btn-enter')
 const arrowUp = document.querySelector('.keyboard__btn-up')
 const arrowDown = document.querySelector('.keyboard__btn-down')
 const arrowLeft = document.querySelector('.keyboard__btn-left')
 const arrowRight = document.querySelector('.keyboard__btn-right')
-const specBtns = [space, backspace, tab, del, caps, leftShift, rigthShift, ctrlLeft, ctrlRight, enter, arrowDown, arrowLeft, arrowUp, arrowRight]
-
-specBtns.forEach(btn => {
-  btn.addEventListener('mousedown', () => {
-    btn.classList.add('active')
-  })
-})
 
 window.addEventListener('keydown', (e) => {
   if (e.key == 'Tab') {
@@ -52,10 +101,10 @@ window.addEventListener('keydown', (e) => {
       caps.classList.add('active')
     }
     if (e.code == 'ShiftLeft') {
-      leftShift.classList.add('active')
+      shift.classList.add('active')
     }
     if (e.code == 'ShiftRight') {
-      rigthShift.classList.add('active')
+      shift.classList.add('active')
     }
     if (e.code == 'Backspace') {
       backspace.classList.add('active')
@@ -64,10 +113,10 @@ window.addEventListener('keydown', (e) => {
       del.classList.add('active')
     }
     if (e.code == 'ControlLeft') {
-      ctrlLeft.classList.add('active')
+      ctrl.classList.add('active')
     }
     if (e.code == 'ControlRight') {
-      ctrlRight.classList.add('active')
+      ctrl.classList.add('active')
     }
     if (e.code == 'Enter') {
       enter.classList.add('active')
@@ -85,7 +134,6 @@ window.addEventListener('keydown', (e) => {
       arrowRight.classList.add('active')
     }
   })
-  // console.log(e);
 })
 
 window.addEventListener('keyup', (e) => {
@@ -103,10 +151,10 @@ window.addEventListener('keyup', (e) => {
       caps.classList.remove('active')
     }
     if (e.code == 'ShiftLeft') {
-      leftShift.classList.remove('active')
+      shift.classList.remove('active')
     }
     if (e.code == 'ShiftRight') {
-      rigthShift.classList.remove('active')
+      shift.classList.remove('active')
     }
     if (e.code == 'Backspace') {
       backspace.classList.remove('active')
@@ -115,10 +163,10 @@ window.addEventListener('keyup', (e) => {
       del.classList.remove('active')
     }
     if (e.code == 'ControlLeft') {
-      ctrlLeft.classList.remove('active')
+      ctrl.classList.remove('active')
     }
     if (e.code == 'ControlRight') {
-      ctrlRight.classList.remove('active')
+      ctrl.classList.remove('active')
     }
     if (e.code == 'Enter') {
       enter.classList.remove('active')
@@ -137,11 +185,6 @@ window.addEventListener('keyup', (e) => {
     }
   })
 })
-// btns.forEach(item => {
-//   item.addEventListener('click', () => {
-//     input.value += item.innerHTML
-//   })
-// })
 
 for (let i = 0; i < btns.length; i++) {
   if (btns[i].classList.contains('keyboard__btn-enter')) continue
@@ -173,14 +216,9 @@ for (let i = 0; i < btns.length; i++) {
   })
 }
 
-for (let i = 0; i < btns.length; i++) {
-  if (btns[i].classList.contains('active')) {
-    btns[i].addEventListener('click', () => {
-      input.value += btns[i].innerHTML.toUpperCase()
-      // btns[i].classList.add('active')
-    })
-  }
- }
+tab.addEventListener('click', () => {
+  input.value += "\t"
+})
 
 backspace.addEventListener('click', () => {
   const currentPosition = input.selectionStart;
@@ -219,7 +257,53 @@ arrowRight.addEventListener('click', () => {
 })
 
 
+
+caps.addEventListener('click', () => {
+  !capsLockActive
+  caps.classList.toggle('active', capsLockActive)
+  console.log(capsLockActive);
+})
+
+function renderKeyboard() {
+  keyboard.innerHTML = ''
+
+  curLayout.forEach(char => {
+    
+    const btn = createKey(char.charCodeAt(0), capsLockActive ? char.toUpperCase() : char)
+    if (char == 'Tab') {
+      btn.classList.add('keyboard__btn-tab', 'keyboard__btn-black')
+    } else if (char == 'Backspace') {
+      btn.classList.add('keyboard__btn-backspace', 'keyboard__btn-black')
+    } else if (char == 'CapsLock') {
+      btn.classList.add('keyboard__btn-caps', 'keyboard__btn-black')
+    } else if (char == 'Enter') {
+      btn.classList.add('keyboard__btn-enter', 'keyboard__btn-black')
+    } else if (char == 'Shift') {
+      btn.classList.add('keyboard__btn-shift--left', 'keyboard__btn-black')
+    } else if (char == 'Alt') {
+      btn.classList.add('keyboard__btn-alt', 'keyboard__btn-black')
+    } else if (char == 'Ctrl') {
+      btn.classList.add('keyboard__btn-ctrl', 'keyboard__btn-black')
+    } else if (char == 'Win') {
+      btn.classList.add('keyboard__btn-win', 'keyboard__btn-black')
+    } else if (char == ' ') {
+      btn.classList.add('keyboard__btn-space')
+    } else if (char == 'Del') {
+      btn.classList.add('keyboard__btn-del', 'keyboard__btn-black')
+    } else if (char == '▲') {
+      btn.classList.add('keyboard__btn-up', 'keyboard__btn-black')
+    } else if (char == '◄') {
+      btn.classList.add('keyboard__btn-left', 'keyboard__btn-black')
+    } else if (char == '▼') {
+      btn.classList.add('keyboard__btn-down', 'keyboard__btn-black')
+    } else if (char == '►') {
+      btn.classList.add('keyboard__btn-right', 'keyboard__btn-black')
+    } 
+    keyboard.appendChild(btn)
+  })
+}
+
+
+
 // TODO: доелать логику для капса
-// сделать англ раскладку
-// сделать так, чтобы клавиатура генерировалась из js кода и убрать ее из html файла
-// опционально: чуть подправить саму клавиатуру (убрать лишние буквы, добавить нужные)
+
