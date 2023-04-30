@@ -6,6 +6,10 @@
   flex-direction: column;
 }
 
+#input.uppercase {
+  text-transform: uppercase;
+}
+
 .keyboard {
   max-width: 100%;
   width: 680px;
@@ -32,6 +36,9 @@
 }
 .keyboard__btn.active {
   background: blue;
+}
+.keyboard__btn.uppercase {
+  text-transform: uppercase;
 }
 
 .keyboard__btn-backspace {
