@@ -171,18 +171,6 @@ shift.addEventListener('click', () => {
   renderKeyboard();
 });
 
-document.addEventListener('keydown', (e) => {
-  if (e.key == 'Shift' && curLayout == russianLayout) {
-    curLayout = englishLayout;
-    localStorage.setItem('keyboardLayout', 'english');
-  }
-  else {
-    curLayout = russianLayout;
-    localStorage.setItem('keyboardLayout', 'russian');
-  }
-  keyboard.innerHTML = '';
-  renderKeyboard();
-})
 
 const btns = document.querySelectorAll('.keyboard__btn');
 const input = document.getElementById('input');
