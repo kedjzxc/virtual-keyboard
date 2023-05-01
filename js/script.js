@@ -8,6 +8,8 @@ body.innerHTML = `
       </div>
     </div>
   </div>
+
+  <p style='text-align: center; margin-top: 20px'>click left shift to change the language</p>
     `;
 
 const russianLayout = [
@@ -157,7 +159,6 @@ function createKey(keyCode, keyValue) {
 }
 
 const shift = document.querySelector('.keyboard__btn-shift--left');
-console.log(shift);
 shift.addEventListener('click', () => {
   if (curLayout == russianLayout) {
     curLayout = englishLayout;
@@ -169,6 +170,19 @@ shift.addEventListener('click', () => {
   keyboard.innerHTML = '';
   renderKeyboard();
 });
+
+document.addEventListener('keydown', (e) => {
+  if (e.key == 'Shift' && curLayout == russianLayout) {
+    curLayout = englishLayout;
+    localStorage.setItem('keyboardLayout', 'english');
+  }
+  else {
+    curLayout = russianLayout;
+    localStorage.setItem('keyboardLayout', 'russian');
+  }
+  keyboard.innerHTML = '';
+  renderKeyboard();
+})
 
 const btns = document.querySelectorAll('.keyboard__btn');
 const input = document.getElementById('input');
